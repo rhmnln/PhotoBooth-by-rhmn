@@ -60,6 +60,23 @@ function drawGrain(ctx, canvasHeight, opacity = 0.05) {
   ctx.restore();
 }
 
+function formatFilmDate(date) {
+  const yy = String(date.getFullYear()).slice(-2);
+  return `'${yy} ${date.getMonth() + 1} ${date.getDate()}`;
+}
+
+function drawDateStamp(ctx, x, y, text, color) {
+  ctx.save();
+  ctx.font = '700 15px "Space Mono", monospace';
+  ctx.fillStyle = color;
+  ctx.textAlign = 'right';
+  ctx.textBaseline = 'bottom';
+  ctx.shadowColor = 'rgba(0,0,0,0.45)';
+  ctx.shadowBlur = 3;
+  ctx.fillText(text, x, y);
+  ctx.restore();
+}
+
 function drawRoundedPhoto(ctx, img, x, y, w, h, radius, filter, rotationDeg) {
   ctx.save();
   if (rotationDeg) {
@@ -113,10 +130,9 @@ async function composeStrip(photoDataUrls, template, meta) {
   ctx.fillStyle = template.paperColor;
   ctx.fillRect(0, 0, STRIP_WIDTH, totalHeight);
 
-  // Bingkai luar
-
   let cursorY = PADDING;
   const photoW = STRIP_WIDTH - PADDING * 2;
+  const filmDateText = formatFilmDate(new Date());
 
   for (let i = 0; i < 4; i++) {
     const img = images[i];
@@ -151,6 +167,10 @@ async function composeStrip(photoDataUrls, template, meta) {
       template.photoFilter,
       isPolaroid ? rot : 0
     );
+
+    if (template.decoration === 'datestamp') {
+      drawDateStamp(ctx, PADDING + photoW - 12, cursorY + photoBoxH - 12, filmDateText, template.accentColor);
+    }
 
     cursorY += photoBoxH + GAP;
   }
@@ -204,7 +224,6 @@ async function composeGroupStrip(roundsData, participantOrder, template, meta) {
 
   ctx.fillStyle = template.paperColor;
   ctx.fillRect(0, 0, STRIP_WIDTH, totalHeight);
-  ctx.strokeStyle = template.frameColor;
 
   const photoW = STRIP_WIDTH - PADDING * 2;
   const colGap = 6;
@@ -212,6 +231,7 @@ async function composeGroupStrip(roundsData, participantOrder, template, meta) {
   const colW = (photoW - colGap * (n - 1)) / n;
 
   let cursorY = PADDING;
+  const filmDateText = formatFilmDate(new Date());
   for (let round = 0; round < 4; round++) {
     const frames = roundsData[round] || {};
     for (let i = 0; i < n; i++) {
@@ -221,6 +241,9 @@ async function composeGroupStrip(roundsData, participantOrder, template, meta) {
       if (src) {
         const img = await loadImage(src);
         drawRoundedPhoto(ctx, img, x, cursorY, colW, PHOTO_HEIGHT, 10, template.photoFilter, 0);
+        if (template.decoration === 'datestamp') {
+          drawDateStamp(ctx, x + colW - 10, cursorY + PHOTO_HEIGHT - 10, filmDateText, template.accentColor);
+        }
       } else {
         ctx.save();
         ctx.fillStyle = 'rgba(120,120,120,0.15)';
