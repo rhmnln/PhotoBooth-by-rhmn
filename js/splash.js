@@ -1,4 +1,4 @@
-(function () {
+document.addEventListener('DOMContentLoaded', function () {
   const splash = document.getElementById('splashScreen');
   if (!splash) return;
 
@@ -15,4 +15,4 @@
 
   splash.addEventListener('click', dismiss);
   setTimeout(dismiss, 2200);
-})();
+});
