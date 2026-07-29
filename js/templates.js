@@ -71,6 +71,19 @@ const TEMPLATES = [
     decoration: 'none',
     photoRotationDeg: 0,
   },
+  {
+    id: 'film-cam-95',
+    name: "Film Cam '95",
+    tagline: 'Matte hangat, stempel tanggal oranye ala kamera analog',
+    paperColor: '#f2ede4',
+    frameColor: '#3a3a38',
+    inkColor: '#3a3a38',
+    accentColor: '#ff6a1a',
+    photoFilter: 'saturate(0.82) contrast(0.92) brightness(1.06) sepia(0.12)',
+    swatch: ['#f2ede4', '#ff6a1a', '#8a8577'],
+    decoration: 'datestamp',
+    photoRotationDeg: 0,
+  },
 ];
 
 function getTemplateById(id) {
