@@ -20,7 +20,13 @@
     <section id="screenTemplate" class="screen">
       <h2 class="screen__title">Pilih gaya strip</h2>
       <p class="screen__subtitle">4 foto berturut-turut, langsung jadi satu strip.</p>
-      <div id="templateGrid" class="template-grid"></div>
+
+<div class="field">
+  <label for="soloNameInput">Nama kamu (buat caption di strip)</label>
+  <input id="soloNameInput" type="text" placeholder="cth. Sari" maxlength="20" autocomplete="off" />
+</div>
+
+<div id="templateGrid" class="template-grid"></div>
       <button id="toCaptureBtn" class="btn btn-primary" style="margin-top:24px;">Lanjut ke Kamera</button>
     </section>
 
