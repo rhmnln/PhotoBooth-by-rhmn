@@ -14,6 +14,7 @@ const flashOverlay = document.getElementById('flashOverlay');
 const progressDots = document.getElementById('progressDots');
 const captureStatus = document.getElementById('captureStatus');
 const startCaptureBtn = document.getElementById('startCaptureBtn');
+const soloNameInput = document.getElementById('soloNameInput');
 const resultWrap = document.getElementById('resultWrap');
 const downloadBtn = document.getElementById('downloadBtn');
 const printBtn = document.getElementById('printBtn');
