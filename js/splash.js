@@ -14,5 +14,5 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   splash.addEventListener('click', dismiss);
-  setTimeout(dismiss, 5000);
+  setTimeout(dismiss, 5500);
 });
