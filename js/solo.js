@@ -117,7 +117,7 @@ async function buildResult() {
   });
 
   finalCanvas = await composeStrip(capturedPhotos, template, {
-    roomCode: null,
+    roomCode: soloNameInput.value.trim() || null,
     dateLabel,
   });
 
