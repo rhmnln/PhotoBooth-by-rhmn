@@ -36,6 +36,11 @@
   display: none;
 }
 
+.join-form .btn {
+  width: auto;
+  flex: 0 0 auto;
+}
+
 .code-input {
   flex: 1;
   padding: 14px 16px;
