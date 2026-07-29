@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sesi Foto — PhotoBox</title>
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/solo.css" />
+  <link rel="stylesheet" href="css/session.css" />
+</head>
+<body>
+  <main class="kiosk kiosk--wide">
+    <div class="kiosk__bezel">
+      <span class="kiosk__brand" id="roundLabel">Foto 1/4</span>
+      <span class="kiosk__brand" id="templateLabel"></span>
+    </div>
+
+    <div class="camera-frame">
+      <video id="videoEl" playsinline muted></video>
+      <div id="countdownOverlay" class="countdown is-hidden"></div>
+      <div id="flashOverlay" class="flash-overlay"></div>
+    </div>
+
+    <div id="progressDots" class="progress-dots"></div>
+
+    <div id="othersStrip" class="others-strip"></div>
+
+    <p id="statusText" class="status-text">Menyiapkan kamera...</p>
+
+    <button id="skipBtn" class="btn btn-secondary is-hidden">Lanjut ke foto berikutnya →</button>
+  </main>
+
+  <script src="js/templates.js"></script>
+  <script src="js/camera.js"></script>
+  <script src="js/compose.js"></script>
+  <script type="module" src="js/session.js"></script>
+</body>
+</html>

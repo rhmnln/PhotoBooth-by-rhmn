@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhotoBox — Foto bareng, dimana aja</title>
+  <meta name="description" content="Photobooth 4-cut ala Korea, bisa dipakai bareng teman walau beda tempat." />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/index.css" />
+</head>
+<body>
+  <main class="kiosk">
+    <div class="kiosk__bezel">
+      <div class="kiosk__dots"><span></span><span></span><span></span></div>
+      <span class="kiosk__brand">Photobox</span>
+    </div>
+
+    <div id="configWarning" class="warning-banner is-hidden">
+      Mode Room butuh setup Firebase gratis dulu (lihat <code>README.md</code>).
+      Mode Solo tetap bisa dicoba sekarang.
+    </div>
+
+    <section class="hero">
+      <div class="hero__mark" aria-hidden="true">✦</div>
+      <h1 class="hero__title">Foto bareng,<br />dimana aja.</h1>
+      <p class="hero__subtitle">Strip foto 4-cut ala photobooth Korea — bareng teman walau beda kota, atau sendirian juga oke.</p>
+    </section>
+
+    <form id="nameForm" class="field">
+      <label for="nameInput">Nama kamu</label>
+      <input id="nameInput" type="text" placeholder="cth. Sari" maxlength="20" autocomplete="off" />
+    </form>
+
+    <div class="action-stack">
+      <button id="createBtn" class="btn btn-primary">Buat Room Baru</button>
+      <button id="showJoinBtn" class="btn btn-secondary">Gabung Room Teman</button>
+
+      <form id="joinForm" class="join-form is-hidden">
+        <input id="roomCodeInput" type="text" placeholder="KODE ROOM" maxlength="5" class="code-input" autocomplete="off" />
+        <button id="joinBtn" class="btn btn-primary" type="submit">Gabung</button>
+      </form>
+
+      <button id="soloBtn" class="btn btn-ghost">Coba sendiri dulu (mode solo) →</button>
+    </div>
+
+    <p id="statusText" class="status-text"></p>
+  </main>
+
+  <script src="js/templates.js"></script>
+  <script src="js/camera.js"></script>
+  <script src="js/compose.js"></script>
+  <script type="module" src="js/index.js"></script>
+</body>
+</html>

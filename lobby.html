@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lobby Room — PhotoBox</title>
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/lobby.css" />
+</head>
+<body>
+  <main class="kiosk kiosk--wide">
+    <div class="kiosk__bezel">
+      <button id="leaveBtn" class="btn-ghost" style="padding:0;">← Keluar room</button>
+      <span class="kiosk__brand">Lobby</span>
+    </div>
+
+    <section class="room-code-block">
+      <span class="room-code-label">Kode room</span>
+      <div class="stamp" id="roomCodeStamp">------</div>
+      <button id="copyLinkBtn" class="btn-ghost">Salin link undangan</button>
+    </section>
+
+    <video id="videoEl" playsinline muted class="sr-only"></video>
+
+    <section>
+      <h2 class="screen__title" style="text-align:left;">Yang sudah gabung</h2>
+      <div id="participantGrid" class="participant-grid"></div>
+    </section>
+
+    <section>
+      <h2 class="screen__title" style="text-align:left;">Pilih gaya strip</h2>
+      <div id="templateGrid" class="template-grid"></div>
+      <p id="templateHint" class="status-text" style="text-align:left;"></p>
+    </section>
+
+    <button id="startBtn" class="btn btn-primary is-hidden">Mulai Sesi Foto</button>
+    <p id="waitingText" class="status-text is-hidden">Menunggu host memulai sesi...</p>
+    <p id="statusText" class="status-text"></p>
+  </main>
+
+  <script src="js/templates.js"></script>
+  <script src="js/camera.js"></script>
+  <script src="js/compose.js"></script>
+  <script type="module" src="js/lobby.js"></script>
+</body>
+</html>

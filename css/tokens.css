@@ -1,0 +1,50 @@
+/* =========================================================
+   PHOTOBOX — DESIGN TOKENS
+   Tema: kios mesin photobooth ala Korea (Life4Cuts/Photoism)
+   Bezel gelap + aksen flash pink, strip foto seperti kertas asli
+   ========================================================= */
+
+:root {
+  /* --- Warna --- */
+  --color-filmstrip-black: #1a1a1d;   /* body mesin / shell utama */
+  --color-filmstrip-black-soft: #26262b;
+  --color-flash-white: #fffdf9;       /* kertas / area foto */
+  --color-booth-pink: #ff5c93;        /* aksen utama, tombol, flash */
+  --color-booth-pink-deep: #e4477e;
+  --color-mint-pop: #7fe7c4;          /* aksen sekunder */
+  --color-butter-yellow: #ffd966;     /* aksen tersier, dipakai hemat */
+  --color-warm-grey: #9a97a3;         /* teks sekunder di atas gelap */
+  --color-ink: #2a2730;               /* teks utama di atas terang */
+
+  /* --- Tipografi --- */
+  --font-display: 'Baloo 2', 'Fredoka', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-stamp: 'Space Mono', 'Courier New', monospace; /* kode room / stempel tanggal */
+
+  --fs-hero: clamp(2rem, 6vw, 3.4rem);
+  --fs-title: clamp(1.4rem, 3.5vw, 2rem);
+  --fs-body: 1rem;
+  --fs-small: 0.85rem;
+  --fs-stamp: 0.78rem;
+
+  /* --- Spacing --- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+
+  /* --- Bentuk & bayangan --- */
+  --radius-kiosk: 32px;
+  --radius-card: 20px;
+  --radius-button: 999px;
+  --radius-photo: 10px;
+
+  --shadow-kiosk: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+  --shadow-strip: 0 18px 40px -12px rgba(0, 0, 0, 0.35);
+  --shadow-button: 0 6px 0 var(--color-booth-pink-deep);
+
+  --ease-kiosk: cubic-bezier(0.22, 1, 0.36, 1);
+}

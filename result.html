@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hasil — PhotoBox</title>
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/solo.css" />
+</head>
+<body>
+  <main class="kiosk">
+    <div class="kiosk__bezel">
+      <div class="kiosk__dots"><span></span><span></span><span></span></div>
+      <span class="kiosk__brand">Hasil</span>
+    </div>
+
+    <h2 class="screen__title">Strip kalian jadi! 🎉</h2>
+    <p id="participantSummary" class="screen__subtitle"></p>
+
+    <div id="resultWrap" class="result-wrap">
+      <div class="spinner"></div>
+    </div>
+
+    <div class="result-actions">
+      <button id="downloadBtn" class="btn btn-primary">Unduh ke Perangkat</button>
+      <button id="printBtn" class="btn btn-secondary">Cetak Langsung</button>
+      <a href="index.html" class="btn btn-ghost" style="text-align:center;">Sesi baru →</a>
+    </div>
+  </main>
+
+  <div id="printArea" class="print-area"></div>
+
+  <script src="js/templates.js"></script>
+  <script src="js/camera.js"></script>
+  <script src="js/compose.js"></script>
+  <script type="module" src="js/result.js"></script>
+</body>
+</html>
