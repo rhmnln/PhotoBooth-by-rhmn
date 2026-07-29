@@ -104,7 +104,7 @@ async function handleRound(round, startMillis) {
   statusText.textContent = 'Bersiap...';
   statusText.classList.remove('is-error');
 
-  const targetMillis = startMillis + 3000;
+  const targetMillis = startMillis + 5000;
   await runSyncedCountdown(countdownOverlay, targetMillis);
 
   flashOverlay.classList.remove('is-flashing');
