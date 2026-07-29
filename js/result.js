@@ -16,6 +16,7 @@ let finalCanvas = null;
 let roomData = null;
 let capturesById = {};
 let built = false;
+let waitTimeoutStarted = false;
 
 function tryBuild() {
   if (built || !roomData) return;
@@ -29,11 +30,24 @@ function tryBuild() {
     return sum + count;
   }, 0);
 
-  // Susun begitu semua foto sudah masuk (atau ronde sudah lewat semua)
-  if (totalReceived < totalExpected && roomData.status !== 'done') return;
+  // Susun begitu semua foto beneran sudah kebaca dari Firestore
+  if (totalReceived >= totalExpected) {
+    built = true;
+    buildStrip(participantIds);
+    return;
+  }
 
-  built = true;
-  buildStrip(participantIds);
+  // Fallback: kalau dalam 6 detik belum lengkap juga (mis. ada yang gagal upload),
+  // tetap susun pakai foto yang ada, supaya tidak nyangkut nunggu selamanya.
+  if (!waitTimeoutStarted) {
+    waitTimeoutStarted = true;
+    setTimeout(() => {
+      if (!built) {
+        built = true;
+        buildStrip(participantIds);
+      }
+    }, 6000);
+  }
 }
 
 async function buildStrip(participantIds) {
@@ -58,13 +72,13 @@ async function buildStrip(participantIds) {
   }
 
   const namesForCaption = participantIds
-  .map((pid) => roomData.participants[pid].name)
-  .join('-');
+    .map((pid) => roomData.participants[pid].name)
+    .join('-');
 
-finalCanvas = await composeGroupStrip(roundsData, participantIds, template, {
-  roomCode: namesForCaption,
-  dateLabel,
-});
+  finalCanvas = await composeGroupStrip(roundsData, participantIds, template, {
+    roomCode: namesForCaption,
+    dateLabel,
+  });
 
   resultWrap.innerHTML = '';
   resultWrap.appendChild(finalCanvas);
