@@ -16,7 +16,7 @@ const TEMPLATES = [
     accentColor: '#ff5c93',
     photoFilter: 'saturate(1.1) contrast(1.03)',
     swatch: ['#fffdf9', '#ff5c93', '#ffd1e3'],
-    decoration: 'hearts',
+    decoration: 'none',
     photoRotationDeg: 0,
   },
   {
