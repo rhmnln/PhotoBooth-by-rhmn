@@ -114,9 +114,6 @@ async function composeStrip(photoDataUrls, template, meta) {
   ctx.fillRect(0, 0, STRIP_WIDTH, totalHeight);
 
   // Bingkai luar
-  ctx.strokeStyle = template.frameColor;
-  ctx.lineWidth = 3;
-  ctx.strokeRect(6, 6, STRIP_WIDTH - 12, totalHeight - 12);
 
   let cursorY = PADDING;
   const photoW = STRIP_WIDTH - PADDING * 2;
@@ -208,8 +205,6 @@ async function composeGroupStrip(roundsData, participantOrder, template, meta) {
   ctx.fillStyle = template.paperColor;
   ctx.fillRect(0, 0, STRIP_WIDTH, totalHeight);
   ctx.strokeStyle = template.frameColor;
-  ctx.lineWidth = 3;
-  ctx.strokeRect(6, 6, STRIP_WIDTH - 12, totalHeight - 12);
 
   const photoW = STRIP_WIDTH - PADDING * 2;
   const colGap = 6;
