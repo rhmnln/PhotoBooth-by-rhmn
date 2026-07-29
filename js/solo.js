@@ -86,7 +86,7 @@ startCaptureBtn.addEventListener('click', async () => {
   for (let round = 0; round < 4; round++) {
     renderProgressDots(round, round);
     captureStatus.textContent = `Foto ke-${round + 1} dari 4...`;
-    await runCountdown(countdownOverlay, 3);
+    await runCountdown(countdownOverlay, 5);
 
     flashOverlay.classList.remove('is-flashing');
     void flashOverlay.offsetWidth; // restart animasi
