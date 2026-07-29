@@ -57,10 +57,14 @@ async function buildStrip(participantIds) {
     roundsData.push(frame);
   }
 
-  finalCanvas = await composeGroupStrip(roundsData, participantIds, template, {
-    roomCode,
-    dateLabel,
-  });
+  const namesForCaption = participantIds
+  .map((pid) => roomData.participants[pid].name)
+  .join('-');
+
+finalCanvas = await composeGroupStrip(roundsData, participantIds, template, {
+  roomCode: namesForCaption,
+  dateLabel,
+});
 
   resultWrap.innerHTML = '';
   resultWrap.appendChild(finalCanvas);
