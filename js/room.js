@@ -19,6 +19,7 @@ import {
 
 const ROOM_CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // tanpa 0/O/1/I biar gak ambigu
 const TOTAL_ROUNDS = 4;
+const MAX_PARTICIPANTS = 4;
 
 function generateRoomCode(length = 5) {
   let code = '';
@@ -87,8 +88,13 @@ async function joinRoom(roomCode, name) {
   if (!snap.exists()) {
     throw new Error('Room tidak ditemukan. Cek lagi kode roomnya, ya.');
   }
-  if (snap.data().status !== 'lobby') {
+  const roomData = snap.data();
+  if (roomData.status !== 'lobby') {
     throw new Error('Sesi di room ini sudah dimulai. Minta host buat room baru.');
+  }
+  const participantCount = Object.keys(roomData.participants || {}).length;
+  if (participantCount >= MAX_PARTICIPANTS) {
+    throw new Error(`Room ini sudah penuh (maksimal ${MAX_PARTICIPANTS} orang).`);
   }
 
   const participantId = getIdentity();
@@ -169,6 +175,7 @@ async function leaveRoom(roomCode, participantId) {
 
 export {
   TOTAL_ROUNDS,
+  MAX_PARTICIPANTS,
   getIdentity,
   getSessionInfo,
   setSessionInfo,
