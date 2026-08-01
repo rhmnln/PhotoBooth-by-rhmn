@@ -9,6 +9,7 @@ import {
   setTemplate,
   startSession,
   leaveRoom,
+  MAX_PARTICIPANTS,
 } from './room.js';
 
 const { participantId, roomCode, isHost } = getSessionInfo();
@@ -21,6 +22,7 @@ const roomCodeStamp = document.getElementById('roomCodeStamp');
 const copyLinkBtn = document.getElementById('copyLinkBtn');
 const videoEl = document.getElementById('videoEl');
 const participantGrid = document.getElementById('participantGrid');
+const participantTitle = document.getElementById('participantTitle');
 const templateGrid = document.getElementById('templateGrid');
 const templateHint = document.getElementById('templateHint');
 const startBtn = document.getElementById('startBtn');
@@ -50,6 +52,7 @@ startCamera(videoEl)
 function renderParticipants() {
   if (!latestRoomData) return;
   const participants = latestRoomData.participants || {};
+  participantTitle.textContent = `Yang sudah gabung (${Object.keys(participants).length}/${MAX_PARTICIPANTS})`;
   participantGrid.innerHTML = '';
   Object.entries(participants).forEach(([pid, p]) => {
     const wrap = document.createElement('div');
