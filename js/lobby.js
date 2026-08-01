@@ -87,15 +87,18 @@ function renderTemplates() {
     card.className =
       'template-card' + (selected ? ' is-selected' : '') + (!isHost ? ' is-locked' : '');
     card.innerHTML = `
-      <div class="template-card__swatch">${tpl.swatch
-        .map((c) => `<span style="background:${c}"></span>`)
-        .join('')}</div>
+      <div class="template-card__preview"><div class="template-card__preview-loading"></div></div>
       <span class="template-card__name">${tpl.name}</span>
     `;
     if (isHost) {
       card.addEventListener('click', () => setTemplate(roomCode, tpl.id));
     }
     templateGrid.appendChild(card);
+
+    getTemplatePreview(tpl).then((dataUrl) => {
+      const box = card.querySelector('.template-card__preview');
+      if (box) box.innerHTML = `<img src="${dataUrl}" alt="Preview ${tpl.name}" />`;
+    });
   });
   templateHint.textContent = isHost
     ? 'Kamu host — pilih gaya strip buat semua peserta.'
