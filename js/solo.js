@@ -38,9 +38,7 @@ function renderTemplateGrid() {
     card.type = 'button';
     card.className = 'template-card' + (tpl.id === selectedTemplateId ? ' is-selected' : '');
     card.innerHTML = `
-      <div class="template-card__swatch">
-        ${tpl.swatch.map((c) => `<span style="background:${c}"></span>`).join('')}
-      </div>
+      <div class="template-card__preview"><div class="template-card__preview-loading"></div></div>
       <span class="template-card__name">${tpl.name}</span>
       <span class="template-card__tagline">${tpl.tagline}</span>
     `;
@@ -49,6 +47,11 @@ function renderTemplateGrid() {
       renderTemplateGrid();
     });
     templateGrid.appendChild(card);
+
+    getTemplatePreview(tpl).then((dataUrl) => {
+      const box = card.querySelector('.template-card__preview');
+      if (box) box.innerHTML = `<img src="${dataUrl}" alt="Preview ${tpl.name}" />`;
+    });
   });
 }
 
