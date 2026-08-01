@@ -281,3 +281,98 @@ async function composeGroupStrip(roundsData, participantOrder, template, meta) {
 
   return canvas;
 }
+
+/**
+ * Preview mini per template — dipakai di grid pilihan template supaya
+ * user tahu kira-kira hasilnya sebelum motret beneran. Pakai foto contoh
+ * (placeholder) karena foto asli user belum ada di tahap pilih template.
+ * Hasilnya di-cache supaya nggak digambar ulang tiap kali grid re-render.
+ */
+const templatePreviewCache = {};
+
+function createPlaceholderPhotoDataUrl() {
+  const c = document.createElement('canvas');
+  c.width = 300;
+  c.height = 300;
+  const ctx = c.getContext('2d');
+  const grad = ctx.createLinearGradient(0, 0, 300, 300);
+  grad.addColorStop(0, '#d9d5cd');
+  grad.addColorStop(1, '#b7b2a8');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 300, 300);
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.beginPath();
+  ctx.arc(150, 120, 46, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(150, 250, 85, 70, 0, Math.PI, 0);
+  ctx.fill();
+  return c.toDataURL('image/jpeg', 0.85);
+}
+
+async function getTemplatePreview(template) {
+  if (templatePreviewCache[template.id]) return templatePreviewCache[template.id];
+
+  const W = 260;
+  const H = 200;
+  const canvas = document.createElement('canvas');
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  ctx.fillStyle = template.paperColor;
+  ctx.fillRect(0, 0, W, H);
+
+  const pad = 12;
+  const photoW = W - pad * 2;
+  const photoH = H - pad * 2;
+  const isPolaroid = template.decoration === 'polaroid-tilt';
+  const rot = isPolaroid ? 2.5 : 0;
+  const img = await loadImage(createPlaceholderPhotoDataUrl());
+
+  if (isPolaroid) {
+    ctx.save();
+    ctx.translate(W / 2, H / 2);
+    ctx.rotate((rot * Math.PI) / 180);
+    ctx.translate(-W / 2, -H / 2);
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = 'rgba(0,0,0,0.18)';
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.roundRect(pad - 6, pad - 6, photoW + 12, photoH + 12, 8);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  drawRoundedPhoto(ctx, img, pad, pad, photoW, photoH, isPolaroid ? 4 : 12, template.photoFilter, rot);
+
+  if (template.decoration === 'datestamp') {
+    drawDateStamp(ctx, pad + photoW - 8, pad + photoH - 8, formatFilmDate(new Date()), template.accentColor);
+  } else if (template.decoration === 'sprockets') {
+    ctx.save();
+    ctx.fillStyle = template.frameColor;
+    for (let y = 8; y < H - 8; y += 16) {
+      ctx.beginPath();
+      ctx.roundRect(3, y, 6, 6, 1);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.roundRect(W - 9, y, 6, 6, 1);
+      ctx.fill();
+    }
+    ctx.restore();
+  } else if (template.decoration === 'grain') {
+    ctx.save();
+    ctx.globalAlpha = 0.06;
+    for (let i = 0; i < 260; i++) {
+      const x = Math.random() * W;
+      const y = Math.random() * H;
+      ctx.fillStyle = Math.random() > 0.5 ? '#000000' : '#ffffff';
+      ctx.fillRect(x, y, 1.2, 1.2);
+    }
+    ctx.restore();
+  }
+
+  const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+  templatePreviewCache[template.id] = dataUrl;
+  return dataUrl;
+}
